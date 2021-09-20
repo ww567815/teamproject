@@ -35,9 +35,8 @@
 	<div class="offcanvas-menu-wrapper">
 		<div class="offcanvas__cart">
 			<div class="offcanvas__cart__links">
-				<a href="#" class="search-switch"><img
-					src="/resources/img/icon/search.png" alt=""></a> <a href="#"><img
-					src="/resources/img/icon/heart.png" alt=""></a>
+				<a href="#" class="search-switch"><img src="/resources/img/icon/search.png"
+					alt=""></a> <a href="#"><img src="/resources/img/icon/heart.png" alt=""></a>
 			</div>
 			<div class="offcanvas__cart__item">
 				<a href="#"><img src="img/icon/cart.png" alt=""> <span></span></a>
@@ -84,8 +83,7 @@
 								</ul>
 							</div>
 							<div class="header__logo">
-								<a href="/index"><img src="/resources/img/logo_widthVer.png"
-									alt=""></a>
+								<a href="/index"><img src="/resources/img/logo_widthVer.png" alt=""></a>
 							</div>
 							<div class="header__top__right">
 								<div class="header__top__right__links">
@@ -94,8 +92,7 @@
 										src="/resources/img/icon/heart.png" alt=""></a>
 								</div>
 								<div class="header__top__right__cart">
-									<a href="#"><img src="/resources/img/icon/cart.png" alt="">
-										<span></span></a>
+									<a href="#"><img src="/resources/img/icon/cart.png" alt=""> <span></span></a>
 									<div class="cart__price">
 										Cart: <span>₩0.00</span>
 									</div>
@@ -136,18 +133,64 @@
 	</header>
 	<!-- Header Section End -->
 
-	<!-- start chat -->
-	<form id="login-form" method="post" action="/loginProcess.do">
-		<div>
-			<input type="text" name="id" class="form-control" name="아이디 입력"
-				placeholder="Username" autofocus>
-		</div>
-		<div>
-			<button type="submit" class="form-control btn btn-primary">로그인</button>
-		</div>
-	</form>
-	<!-- start chat End-->
+	<!-- Breadcrumb Begin -->
+	<div class="breadcrumb-option">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<!-- <div class="breadcrumb__text"> -->
+					<div>
+						<h2>로그인</h2>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6">
 
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcrumb End -->
+
+	<!-- Checkout Section Begin -->
+	<section class="checkout spad">
+		<div class="container">
+			<div class="checkout__form">
+				<form action="/member/login" method="POST">
+					<div class="row">
+						<div class="col-lg-8 col-md-6">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="checkout__input">
+										<p>
+											아이디<span>*</span>
+										</p>
+										<input type="text" name="id">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="checkout__input">
+										<p>
+											비밀번호<span>*</span>
+										</p>
+										<input type="password" name="passwd">
+									</div>
+								</div>
+							</div>
+
+							<button class="btn btn-lg bg-warning">로그인</button>
+							<label for="acc"> 로그인 유지 <input type="checkbox" id="acc" name="rememberMe">
+								<span class="checkmark"></span>
+							</label>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- Checkout Section End -->
 
 	<!-- Footer Section Begin -->
 	<footer class="footer set-bg" data-setbg="img/footer-bg.jpg">

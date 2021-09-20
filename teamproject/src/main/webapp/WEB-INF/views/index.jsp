@@ -127,7 +127,7 @@
 						<ul>
 							<li class=""><a href="/index">홈</a></li>
 							<li><a href="#">단호박온도</a></li>
-							<li><a href="/member/login">채팅</a></li>
+							<li><a href="/chat">채팅</a></li>
 							<li><a href="#">물건</a></li>
 							<li><a href="#">마이페이지</a>
 								<ul class="dropdown">
