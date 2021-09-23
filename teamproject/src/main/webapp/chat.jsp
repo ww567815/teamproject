@@ -20,6 +20,7 @@
 	rel="stylesheet">
 
 <!-- Css Styles -->
+<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 <%-- include head.jsp --%>
 <jsp:include page="/WEB-INF/views/include/head.jsp" />
 </head>
@@ -147,82 +148,98 @@
 							참여</button>
 						<button class="btn btn-lg bg-warning" onclick="closeSocket();">대회방
 							나가기</button>
-						<br />
-						<br />
-						<br />
-						<div class="checkout__input">
-							메세지 입력 : <input type="text" id="sender"
-								value="${sessionScope.id}" style="display: none;"> <input
-								type="text" id="messageinput">
-						</div>
+						<br /> <br /> <br />
 
-						<button class="btn btn-lg bg-warning" onclick="send();">메세지
-							전송</button>
-						<button class="btn btn-lg bg-warning"
-							onclick="javascript:clearText();">대화내용 지우기</button>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6"></div>
 			</div>
+			<!-- send message End -->
+
+			<!-- Server responses get written here -->
+			<div class="card border-success mb-3" style="max-width: 50rem;">
+				<div class="card-header">
+					<img class="chat__logo" src=/resources/img/logo_widthVer.png>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					단호박 채팅
+				</div>
+				<div class="card-body text-success">
+					<p class="card-text">
+						<div id="messages"></div>
+					</p>
+					<div class="checkout__input">
+						메세지 입력 : <input type="text" id="sender" value="${sessionScope.id}"
+							style="display: none;"> <input type="text"
+							id="messageinput">
+						<button class="btn btn-lg bg-warning" onclick="send();">메세지
+							전송</button>
+						<button class="btn btn-lg bg-warning"
+							onclick="javascript:clearText();">대화내용 지우기</button>
+						<script type="text/javascript">
+							var ws;
+							var messages = document.getElementById("messages");
+
+							function openSocket() {
+								if (ws !== undefined
+										&& ws.readyState !== WebSocket.CLOSED) {
+									writeResponse("WebSocket is already opened.");
+									return;
+								}
+								//웹소켓 객체 만드는 코드
+								ws = new WebSocket(
+										"ws://localhost:8090/echo.do");
+
+								ws.onopen = function(event) {
+									if (event.data === undefined) {
+										return;
+									}
+									writeResponse(event.data);
+								};
+
+								ws.onmessage = function(event) {
+									console.log('writeResponse');
+									console.log(event.data)
+									writeResponse(event.data);
+								};
+
+								ws.onclose = function(event) {
+									writeResponse("대화 종료");
+								}
+
+							}
+
+							function send() {
+								// var text=document.getElementById("messageinput").value+","+document.getElementById("sender").value;
+								var text = document
+										.getElementById("messageinput").value
+										+ ","
+										+ document.getElementById("sender").value;
+								ws.send(text);
+								text = "";
+							}
+
+							function closeSocket() {
+								ws.close();
+							}
+
+							function writeResponse(text) {
+								messages.innerHTML += "<br/>" + text;
+							}
+
+							function clearText() {
+								console.log(messages.parentNode);
+								messages.parentNode.removeChild(messages)
+							}
+						</script>
+					
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- send message End -->
 
-	<!-- Server responses get written here -->
-	<div id="messages"></div>
 	<!-- websocket javascript -->
-	<script type="text/javascript">
-		var ws;
-		var messages = document.getElementById("messages");
-
-		function openSocket() {
-			if (ws !== undefined && ws.readyState !== WebSocket.CLOSED) {
-				writeResponse("WebSocket is already opened.");
-				return;
-			}
-			//웹소켓 객체 만드는 코드
-			ws = new WebSocket("ws://localhost:8090/echo.do");
-
-			ws.onopen = function(event) {
-				if (event.data === undefined) {
-					return;
-				}
-				writeResponse(event.data);
-			};
-
-			ws.onmessage = function(event) {
-				console.log('writeResponse');
-				console.log(event.data)
-				writeResponse(event.data);
-			};
-
-			ws.onclose = function(event) {
-				writeResponse("대화 종료");
-			}
-
-		}
-
-		function send() {
-			// var text=document.getElementById("messageinput").value+","+document.getElementById("sender").value;
-			var text = document.getElementById("messageinput").value + ","
-					+ document.getElementById("sender").value;
-			ws.send(text);
-			text = "";
-		}
-
-		function closeSocket() {
-			ws.close();
-		}
-
-		function writeResponse(text) {
-			messages.innerHTML += "<br/>" + text;
-		}
-
-		function clearText() {
-			console.log(messages.parentNode);
-			messages.parentNode.removeChild(messages)
-		}
-	</script>
 
 	<!-- chatting Section -->
 	<!-- chatting Section End -->
